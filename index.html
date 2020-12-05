@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>HoHoHo!</title>
+	<meta name="author" content="Jakob Senkl">
+	<meta name="description" content="HoHoHo to Brainfuck converter">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="css/cookiebanner.css">
+</head>
+
+<body class="w3-container">
+	<header>
+        <div id="mbmcookie">
+            <a onClick="var d = new Date(); d = new Date(d.getTime() +1000*60*60*24*730); document.cookie = 'mbmcookie=1; expires='+ d.toGMTString() + ';'; document.getElementById('mbmcookie').style.display = 'none';" class="button">Accept</a>
+            <p class="cookiemessage">This website uses technical cookies. By continuing you agree to the use of these cookies. No personal data is stored or shared.</p>
+        </div>
+        <script>
+            var r = 0;
+            a = document.cookie;while(a != ''){while(a.substr(0,1) == ' '){a = a.substr(1,a.length);}cn = a.substring(0,a.indexOf('='));if(a.indexOf(';') != -1){cw = a.substring(a.indexOf('=')+1,a.indexOf(';'));}else{cw = a.substr(a.indexOf('=')+1,a.length);}if(cn == 'mbmcookie'){r = cw;}i = a.indexOf(';')+1;if(i == 0){i = a.length}a = a.substring(i,a.length);}if(r == '1') document.getElementById('mbmcookie').style.display = 'none';
+        </script>
+    </header>
+	<main>
+        <h1 class="w3-center">HoHoHo! / Brainfuck converter</h1>
+        <div class="w3-container w3-red w3-center">
+            <h3>HoHoHo!</h3>
+            <p><textarea style="width: 100%; height: 20vh;" id="hohoho_code"></textarea></p>
+        </div>
+        <div class="w3-container w3-green w3-center">
+            <h3>Brainfuck</h3>
+            <p><textarea style="width: 100%; height: 20vh;" id="brainfuck_code"></textarea></p>
+        </div>
+        <div class="w3-container w3-light-gray w3-center">
+            <p>
+                <button onclick="ho_to_bf();">HoHoHo to Brainfuck</button>
+                <br>
+                <button onclick="bf_to_ho();">Brainfuck to HoHoHo</button>
+                <br>
+                <input type="checkbox" id="simple_hoho" name="Simple Hoho">
+                <label for="simple_hoho">Simple Hoho</label>
+            </p>
+        </div>
+        <p>https://www.tutorialspoint.com/execute_brainfk_online.php</p>
+    </main>
+	<footer>
+        <h2>About this</h2>
+        <p>This website was created to convert between the esoteric programming languages HoHoHo! and Brainfuck easily. More information regarding Brainfuck can be found <a href="https://de.wikipedia.org/wiki/Brainfuck" target="_blank">on Wikipedia</a></p>
+        <h3>About HoHoHo!</h3>
+        <p>HoHoHo! was created in the year 2017 by researchers P. Reichl and S. Claus at the University of Vienna. It is based on Ook! and Brainfuck and creates a way to interpret the exclamations of Santa Claus a Turing-complete programming language.</p>
+        <p>There is also a simplified, less Turing-complete version called "Simple Hoho".</p>
+        <p>All details regarding HoHoHo! can be found in the <a href="https://arxiv.org/pdf/1712.06259.pdf" target="_blank">corresponding paper</a>.</p>
+    </footer>
+	<script type="text/javascript">
+        function ho_to_bf() {
+            var isSimpleHoho = document.getElementById("simple_hoho").checked;
+            var hofield = document.getElementById("hohoho_code");
+            var bffield = document.getElementById("brainfuck_code");
+            var hocode = hofield.value;
+            hocode = hocode.replace(/[^a-zA-Z]/g, ""); //Remove special characters
+            
+            if (isSimpleHoho) {
+                hocode = hocode.replace(/(\w{4})/g, '$1 ').replace(/(^\s+|\s+$)/,''); //Space after each set of 4 characters
+                var bfcode = hocode.replace(/hoHo/g, "+");
+                bfcode = bfcode.replace(/Hoho/g, "-");
+                bfcode = bfcode.replace(/HoHo/g, ">");
+                bfcode = bfcode.replace(/hoho/g, ".");
+                bfcode = bfcode.replace(/[\s]/g, ""); //Remove whitespaces
+            }
+            else {
+                hocode = hocode.replace(/(\w{6})/g, '$1 ').replace(/(^\s+|\s+$)/,''); //Space after each set of 6 characters
+                var bfcode = hocode.replace(/HoHoHo/g, "+");
+                bfcode = bfcode.replace(/hohoho/g, "-");
+                bfcode = bfcode.replace(/HoHoho/g, ">");
+                bfcode = bfcode.replace(/hoHoHo/g, "<");
+                bfcode = bfcode.replace(/Hohoho/g, "[");
+                bfcode = bfcode.replace(/hohoHo/g, "]");
+                bfcode = bfcode.replace(/hoHoho/g, ".");
+                bfcode = bfcode.replace(/HohoHo/g, ",");
+                bfcode = bfcode.replace(/[\s]/g, ""); //Remove whitespaces
+            }
+            bffield.value = bfcode;
+        }
+        function bf_to_ho() {
+            var isSimpleHoho = document.getElementById("simple_hoho").checked;
+            var hofield = document.getElementById("hohoho_code");
+            var bffield = document.getElementById("brainfuck_code");
+            var bfcode = bffield.value;
+            bfcode = bfcode.replace(/[a-zA-Z ]/g, ""); //Remove nonspecial characters
+            
+            if (isSimpleHoho) {
+                bfcode = bfcode.replace(/[\<\[\]\,]/g, ""); //Remove unsupported characters
+                var hocode = bfcode.replace(/\+/g, "hoHo");
+                hocode = hocode.replace(/\-/g, "Hoho");
+                hocode = hocode.replace(/\>/g, "HoHo");
+                hocode = hocode.replace(/\./g, "hoho");
+                hocode = hocode.replace(/(\w{4})/g, '$1! ').replace(/(^\s+|\s+$)/,''); //Space after each set of 4 characters
+            }
+            else {
+                var hocode = bfcode.replace(/\+/g, "HoHoHo");
+                hocode = hocode.replace(/\-/g, "hohoho");
+                hocode = hocode.replace(/\>/g, "HoHoho");
+                hocode = hocode.replace(/\</g, "hoHoHo");
+                hocode = hocode.replace(/\[/g, "Hohoho");
+                hocode = hocode.replace(/\]/g, "hohoHo");
+                hocode = hocode.replace(/\./g, "hoHoho");
+                hocode = hocode.replace(/\,/g, "HohoHo");
+                hocode = hocode.replace(/(\w{6})/g, '$1! ').replace(/(^\s+|\s+$)/,''); //Space after each set of 6 characters
+            }
+            hofield.value = hocode;
+        }
+    </script>
+</body>
+</html>
