@@ -94,7 +94,7 @@
                 hocode = hocode.replace(/\-/g, "Hoho");
                 hocode = hocode.replace(/\>/g, "HoHo");
                 hocode = hocode.replace(/\./g, "hoho");
-                hocode = hocode.replace(/(\w{4})/g, '$1! ').replace(/(^\s+|\s+$)/,''); //Space after each set of 4 characters
+                hocode = hocode.replace(/(H[oOh]*)/g, '$1! ').replace(/(^\s+|\s+$)/,''); //Group into Hohoho groups startinh with capital letter
             }
             else {
                 var hocode = bfcode.replace(/\+/g, "HoHoHo");
@@ -105,7 +105,7 @@
                 hocode = hocode.replace(/\]/g, "hohoHo");
                 hocode = hocode.replace(/\./g, "hoHoho");
                 hocode = hocode.replace(/\,/g, "HohoHo");
-                hocode = hocode.replace(/(\w{6})/g, '$1! ').replace(/(^\s+|\s+$)/,''); //Space after each set of 6 characters
+                hocode = hocode.replace(/(H[oOh]*)/g, '$1! ').replace(/(^\s+|\s+$)/,''); //Group into Hohoho groups startinh with capital letter
             }
             hofield.value = hocode;
         }
