@@ -1,7 +1,9 @@
 # hohoho
 A HoHoHo! to Brainfuck converter.
 
-All information can be found on the website itself: hohoho.jakobsenkl.pw
+This is the legacy "simple" v1 version. For the most recent version including some new features, visit https://github.com/fyr77/hohoho
+
+All information can be found on the website itself: https://fyr77.github.io/hohoho-v1/
 
 ## Thanks
 
